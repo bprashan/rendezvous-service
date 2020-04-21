@@ -1,0 +1,12 @@
+# Copyright 2020 Intel Corporation
+
+FROM redis:latest
+
+# Create a user 'sdouser'. If the user name is updated, please update the same in docker-compose.yaml.
+RUN useradd -ms /bin/bash sdouser
+USER sdouser
+WORKDIR /home/sdouser
+
+# Docker image helathcheck
+
+HEALTHCHECK --interval=30s --timeout=30s CMD ["redis-cli", "ping"] || exit 1
